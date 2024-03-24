@@ -4,11 +4,11 @@
   $id = htmlspecialchars(strip_tags($_POST['id']));
   $password = htmlspecialchars(strip_tags($_POST['password']));
   $stmt = $con->prepare("
-  SELECT * FROM students where id = ? and password = ?  UNION  SELECT * FROM teachers where id = ? and password = ?
+  SELECT * FROM students where id = ? and password = ? 
   "
    
   );
-  $stmt->execute(array($id,$password,$id,$password));
+  $stmt->execute(array($id,$password));
   $data = $stmt->fetch(PDO::FETCH_ASSOC);
   $users = $stmt->rowCount();
   if($users > 0) {
@@ -17,5 +17,6 @@
     echo json_encode(array("status" => "fail"));
   }
 
+  
 
 ?>
